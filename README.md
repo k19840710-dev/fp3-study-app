@@ -16,6 +16,14 @@ npm install
 npm run dev
 ```
 
+## Web公開（GitHub Pages）
+
+`main` ブランチにpushすると、`.github/workflows/deploy.yml` が自動でビルドしてGitHub Pagesに公開します。
+
+- 公開URL: https://k19840710-dev.github.io/fp3-study-app/
+- 初回のみ、リポジトリの Settings → Pages → Build and deployment → Source を「GitHub Actions」に設定してください。
+- GitHub PagesをFreeプランで無料公開するにはリポジトリを Public にする必要があります（Settings → General → Danger Zone → Change visibility）。
+
 ## スクリプト
 
 | コマンド               | 内容                               |
