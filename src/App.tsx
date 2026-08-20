@@ -11,6 +11,7 @@ import { HistoryView } from './features/history/HistoryView';
 import { INITIAL_QUESTION_BANK } from './data/questions';
 import { SECTIONS } from './data/sections';
 import { computeWeakSubsections, generateSmartQuestions } from './lib/quizEngine';
+import { exportUserStatsFile, parseImportPayload } from './lib/exportImport';
 import { useUserStats } from './hooks/useUserStats';
 import type {
   Question,
@@ -39,7 +40,7 @@ function App() {
   const [currentQuestions, setCurrentQuestions] = useState<Question[]>([]);
   const [quizSessionResults, setQuizSessionResults] = useState<QuizSessionResult[]>([]);
 
-  const { userStats, recordAnswer, resetStats } = useUserStats();
+  const { userStats, recordAnswer, resetStats, replaceStats } = useUserStats();
 
   const weakSubsections = useMemo(
     () => computeWeakSubsections(QUESTIONS, userStats, SECTIONS),
@@ -121,6 +122,31 @@ function App() {
     });
   };
 
+  const handleExportData = () => {
+    exportUserStatsFile(userStats);
+  };
+
+  const handleImportFile = async (file: File) => {
+    const text = await file.text();
+    const result = parseImportPayload(text);
+
+    if (!result.ok) {
+      showAlert(result.error, 'インポートエラー');
+      return;
+    }
+
+    const { stats, exportedAt } = result;
+    const dateLabel = exportedAt ? new Date(exportedAt).toLocaleString('ja-JP') : '不明';
+    showConfirm(
+      `書き出し日時: ${dateLabel}\n総回答数: ${stats.totalAnswers}件\n\nこの内容で現在の学習データを上書きします。よろしいですか？`,
+      () => {
+        replaceStats(stats);
+        showAlert('学習データをインポートしました。');
+      },
+      'データのインポート',
+    );
+  };
+
   const selectionLabel = (() => {
     if (selection.kind === 'review') return '【弱点・復習モード】';
     if (selection.kind === 'sub') return `${selection.section.name} → ${selection.sub.name}`;
@@ -197,7 +223,13 @@ function App() {
           )}
 
           {view === 'history' && (
-            <HistoryView questions={QUESTIONS} userStats={userStats} onReset={handleResetData} />
+            <HistoryView
+              questions={QUESTIONS}
+              userStats={userStats}
+              onReset={handleResetData}
+              onExport={handleExportData}
+              onImportFile={handleImportFile}
+            />
           )}
         </ErrorBoundary>
       </main>

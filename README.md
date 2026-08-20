@@ -7,7 +7,8 @@ FP（ファイナンシャル・プランニング）技能検定3級の学科�
 
 - [Vite](https://vite.dev/) + React 19 + TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com/)
-- データ永続化: ブラウザの `localStorage`（現時点ではクラウド同期なし）
+- データ永続化: ブラウザの `localStorage`（クラウド同期なし。「学習分析」画面からJSONでエクスポート／インポート可能）
+- テスト: [Vitest](https://vitest.dev/)
 
 ## セットアップ
 
@@ -32,6 +33,8 @@ npm run dev
 | `npm run build`        | 型チェック＋本番ビルド             |
 | `npm run lint`         | oxlintによる静的解析               |
 | `npm run typecheck`    | TypeScriptの型チェックのみ         |
+| `npm run test`         | Vitestでユニットテストを実行       |
+| `npm run test:watch`   | Vitestをウォッチモードで実行       |
 | `npm run format`       | Prettierでコード整形               |
 | `npm run format:check` | フォーマット崩れのチェック（CI用） |
 | `npm run preview`      | ビルド成果物をローカルでプレビュー |
@@ -53,5 +56,6 @@ src/
 - [ ] アカウント同期（Firebase/Supabase等、永続ログインでの複数端末同期）
 - [ ] AIによる問題生成（APIキーをサーバーサイドで保持する構成で再設計）
 - [ ] 問題の個別編集・削除機能
-- [ ] E2E/ユニットテストの追加
+- [ ] E2Eテストの追加
 - [ ] PWA対応（オフライン利用）
+- [ ] 問題データへの法令基準日メタ情報の付与

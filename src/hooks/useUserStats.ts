@@ -41,5 +41,11 @@ export function useUserStats() {
     saveUserStats(EMPTY_STATS);
   }, []);
 
-  return { userStats, recordAnswer, resetStats };
+  /** インポートなどで学習データを丸ごと置き換える。 */
+  const replaceStats = useCallback((next: UserStats) => {
+    setUserStats(next);
+    saveUserStats(next);
+  }, []);
+
+  return { userStats, recordAnswer, resetStats, replaceStats };
 }

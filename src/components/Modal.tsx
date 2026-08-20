@@ -11,7 +11,9 @@ export function Modal({ config }: { config: ModalConfig }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
       <div className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
         <h3 className="text-base font-bold text-slate-800">{config.title}</h3>
-        <p className="text-xs leading-relaxed text-slate-600">{config.message}</p>
+        <p className="whitespace-pre-line text-xs leading-relaxed text-slate-600">
+          {config.message}
+        </p>
         <div className="flex justify-end space-x-2 pt-2">
           {config.type === 'confirm' && (
             <button
