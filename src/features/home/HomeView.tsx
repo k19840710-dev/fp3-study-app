@@ -1,4 +1,5 @@
 import type { SubsectionAnalytics } from '../../lib/quizEngine';
+import { buildRequestIssueUrl } from '../../lib/requestQuestions';
 
 export function HomeView({
   totalAnswers,
@@ -126,6 +127,24 @@ export function HomeView({
           </span>
         </div>
       </div>
+
+      <a
+        href={buildRequestIssueUrl()}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-between rounded-2xl border border-purple-200 bg-purple-50 p-4 text-purple-900 transition hover:bg-purple-100"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-xl">🔄</span>
+          <div>
+            <div className="text-sm font-bold">問題を追加リクエスト</div>
+            <p className="text-xs text-purple-700">
+              GitHubでIssueを作成すると、1時間以内に新しい問題を自動生成してPRを作ります
+            </p>
+          </div>
+        </div>
+        <span className="text-xs font-bold">開く →</span>
+      </a>
     </div>
   );
 }

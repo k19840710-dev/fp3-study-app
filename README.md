@@ -25,6 +25,14 @@ npm run dev
 - 初回のみ、リポジトリの Settings → Pages → Build and deployment → Source を「GitHub Actions」に設定してください。
 - GitHub PagesをFreeプランで無料公開するにはリポジトリを Public にする必要があります（Settings → General → Danger Zone → Change visibility）。
 
+## 問題バンクの自動拡充
+
+問題数を手間なく増やすための自動化を組んでいます（GitHub Actionsではなく、Claude Codeのスケジュール実行によるもの）。
+
+- **毎日自動追加**: 出題数が少ない単元を優先して、毎日15問前後を自動生成し、Pull Requestとして提案します（マージは人が判断）。
+- **手動リクエスト**: アプリのホーム画面の「🔄 問題を追加リクエスト」から、タイトル・本文が入力済みのGitHub Issue作成画面が開きます。「Submit new issue」を押すだけでリクエスト完了です。1時間以内にIssueが処理され、PRが作成されて自動でクローズされます。
+- 生成された問題は、実際の過去問（日本FP協会・きんざいの著作物）を複製せず、論点を参考にオリジナルの文章で作成されます。税制・法令の数値は生成のたびにWeb検索で最新情報を確認します。
+
 ## スクリプト
 
 | コマンド               | 内容                               |
