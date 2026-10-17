@@ -35,8 +35,7 @@ export function exportPayloadToJson(stats: UserStats): string {
 }
 
 export type ImportResult =
-  | { ok: true; stats: UserStats; exportedAt: string | null }
-  | { ok: false; error: string };
+  { ok: true; stats: UserStats; exportedAt: string | null } | { ok: false; error: string };
 
 /**
  * インポートされたJSONテキストを検証する（純粋関数、DOM操作なし）。
